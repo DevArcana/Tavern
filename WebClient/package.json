@@ -5,12 +5,13 @@
   "author": "Generic Dwarves",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate"
+    "dev": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "generate": "nuxt-ts generate",
+    "start": "nuxt-ts start"
   },
   "dependencies": {
+    "@nuxt/typescript-runtime": "^0.1.5",
     "@nuxtjs/auth": "^4.8.4",
     "@nuxtjs/axios": "^5.3.6",
     "nuxt": "^2.0.0",
