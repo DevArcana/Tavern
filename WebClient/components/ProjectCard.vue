@@ -2,7 +2,7 @@
   <div class="card">
     <header class="card-header is-block">
       <div>
-        <p class="card-header-title">
+        <p class="card-header-title project-title">
           New project
         </p>
       </div>
@@ -11,7 +11,7 @@
           <b-tag type="is-info">Coffee maker</b-tag>
           <b-tag type="is-info">Garbage collector</b-tag>
           <b-tag type="is-info">Motivator</b-tag>
-          <b-tag type="is-info">Other</b-tag>
+          <b-tag type="is-info">Life meaning seeker</b-tag>
         </b-taglist>
       </div>
     </header>
@@ -47,11 +47,21 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  border-radius: 1rem;
+}
 .card-header-title {
   padding-bottom: 0;
 }
+.project-title {
+  font-size: 1.25rem;
+}
 .roles-list {
-  padding-top: 6px;
+  padding-top: 0.5rem;
   font-weight: 500;
 }
 .content {
