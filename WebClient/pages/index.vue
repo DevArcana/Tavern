@@ -4,13 +4,20 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
 import ProjectCard from "~/components/ProjectCard"
-export default {
-  components:{
+
+export default Vue.extend({
+  data () {
+    return {
+      projects: null
+    }
+  },
+  components: {
     ProjectCard
   }
-};
+});
 </script>
 
 <style>
