@@ -1,7 +1,7 @@
 <template>
-  <b-navbar class="is-dark fixed-top">
+  <b-navbar class="is-dark fixed-top" role="navigation" aria-label="main navigation">
     <template slot="brand">
-      <b-navbar-item tag="router-link" :to="{ path: '/' }">
+      <b-navbar-item class="logo-container" tag="router-link" :to="{ path: '/' }">
         <img class="logo"
           src="~/assets/logo.png"
           alt="Tavern Social Platform"
@@ -13,7 +13,7 @@
       <b-navbar-item tag="div">
         <div class="buttons" v-if="isAuthenticated">
           <nuxt-link class="button is-primary" v-if="loggedInUser" to="/">{{ loggedInUser.username }}</nuxt-link>
-          <nuxt-link class="button">Log out</nuxt-link>
+          <button class="button" @click="logout">Log out</button>
         </div>
         <template v-else>
           <div class="buttons">
@@ -31,23 +31,43 @@ import Vue from "vue";
 import { mapGetters } from 'vuex'
 
 export default Vue.extend({
+  methods: {
+    async logout() {
+      await this.$auth.logout();
+    }
+  },
   computed: {
     ...mapGetters(['isAuthenticated', 'loggedInUser'])
   }
 });
 </script>
 
-<style>
-.navbar {
-  height: 5rem;
+<style lang="scss">
+$breakpoint: 1215px;
+
+.logo-container  {
+  padding: 0;
 }
 
-.navbar-item, .navbar-brand, .navbar-burger {
-  height: 100%;
+.navbar {
+  @media screen and (max-width: $breakpoint) {
+    height: 2rem;
+  }
+
+  @media screen and (min-width: $breakpoint) {
+    height: 4rem;
+  }
 }
 
 .logo {
-  height: 4rem;
-  width: auto;
+  @media screen and (max-width: $breakpoint) {
+    height: auto;
+    width: 150px;
+  }
+
+  @media screen and (min-width: $breakpoint) {
+    height: auto;
+    width: 240px;
+  }
 }
 </style>
