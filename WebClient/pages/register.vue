@@ -41,10 +41,11 @@
   </section>
 </template>
 
-<script>
-import Notification from "~/components/Notification";
+<script lang="ts">
+import Vue from "vue"
+import Notification from "~/components/Notification.vue";
 
-export default {
+export default Vue.extend({
   components: {
     Notification
   },
@@ -55,6 +56,11 @@ export default {
       email: "",
       password: "",
       error: null
+    } as {
+      username: string;
+      email: string;
+      password: string;
+      error: string | null;
     };
   },
 
@@ -67,6 +73,7 @@ export default {
           password: this.password
         });
 
+        //@ts-ignore
         await this.$auth.loginWith("local", {
           data: {
             email: this.email,
@@ -84,5 +91,5 @@ export default {
       }
     }
   }
-};
+});
 </script>
