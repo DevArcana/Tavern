@@ -11,14 +11,10 @@ namespace TavernApi.Controllers
 {
   [ApiController]
   [Route("api/comments")]
-  public class CommentController : Controller
+  public class CommentController : TavernController
   {
-    private readonly TavernContext _context;
-
-    public CommentController(TavernContext context)
-    {
-      _context = context;
-    }
+    public CommentController(TavernContext context) : base(context)
+    {}
 
     [HttpGet]
     [Route("{projectId}")]

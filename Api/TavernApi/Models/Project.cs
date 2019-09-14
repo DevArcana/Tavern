@@ -39,4 +39,12 @@ namespace TavernApi.Models
       Creator = new UserDTO(project.Creator);
     }
   }
+
+  public class ProjectDCO
+  {
+    public string Title { get; set; }
+    public long CategoryId { get; set; }
+    public IEnumerable<long> RolesId { get; set; }
+    public string Description { get; set; }
+  }
 }
