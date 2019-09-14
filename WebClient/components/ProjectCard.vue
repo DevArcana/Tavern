@@ -20,7 +20,7 @@
         <div>
           {{ project.description }}
         </div>
-        <div class="veil"></div>
+        <div :class="{veil: project.description.length > 140}"></div>
       </div>
     </div>
     <footer class="card-footer">
@@ -30,15 +30,16 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropOptions } from "vue"
-export default Vue.extend({
-  name: 'YourComponent',
+import Vue, { PropOptions } from "vue";
+import Project from "~/models/Project";
 
-  data () {
-    return {
-      message: 'This is a message'
-    }
-  }
+export default Vue.extend({
+  props: {
+    project: {
+      type: Object,
+      required: true
+    } as PropOptions<Project>
+  },
 })
 </script>
 

@@ -1,17 +1,34 @@
 <template>
   <div>
-    <ProjectCard />
+    <ProjectCard v-for="project in projects" :key="project.id" :project="project" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import ProjectCard from "~/components/ProjectCard"
+import ProjectCard from "~/components/ProjectCard.vue"
+import Project from "~/models/Project";
 
 export default Vue.extend({
   data () {
     return {
-      projects: null
+      projects: [
+        {id: 1, title: "Test", description: `
+      Tesasdasdasdsadsadsadsadasdsadasdasdasdasdsadasdasdasdasdsadsadsaadsadsadsadasdsadsadasdsadsadsadsadasdsadsadsadsadsadsadasdsadt
+      Tesasdasdasdsadsadsadsadasdsadasdasdasdasdsadasdasdasdasdsadsadsaadsadsadsadasdsadsadasdsadsadsadsadasdsadsadsadsadsadsadasdsadt
+      Tesasdasdasdsadsadsadsadasdsadasdasdasdasdsadasdasdasdasdsadsadsaadsadsadsadasdsadsadasdsadsadsadsadasdsadsadsadsadsadsadasdsadt
+      Tesasdasdasdsadsadsadsadasdsadasdasdasdasdsadasdasdasdasdsadsadsaadsadsadsadasdsadsadasdsadsadsadsadasdsadsadsadsadsadsadasdsadt
+      Tesasdasdasdsadsadsadsadasdsadasdasdasdasdsadasdasdasdasdsadsadsaadsadsadsadasdsadsadasdsadsadsadsadasdsadsadsadsadsadsadasdsadt
+      Tesasdasdasdsadsadsadsadasdsadasdasdasdasdsadasdasdasdasdsadsadsaadsadsadsadasdsadsadasdsadsadsadsadasdsadsadsadsadsadsadasdsadt
+      Tesasdasdasdsadsadsadsadasdsadasdasdasdasdsadasdasdasdasdsadsadsaadsadsadsadasdsadsadasdsadsadsadsadasdsadsadsadsadsadsadasdsadt
+      Tesasdasdasdsadsadsadsadasdsadasdasdasdasdsadasdasdasdasdsadsadsaadsadsadsadasdsadsadasdsadsadsadsadasdsadsadsadsadsadsadasdsadt
+      `},
+      {id: 1, title: "Test", description: `
+      Short description
+      `}
+      ]
+    } as {
+      projects: Project[];
     }
   },
   components: {
