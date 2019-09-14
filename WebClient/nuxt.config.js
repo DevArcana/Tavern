@@ -1,28 +1,29 @@
 
 export default {
-  mode: "universal",
+  mode: 'universal',
   /*
   ** Headers of the page
   */
   head: {
-    title: process.env.npm_package_name || "",
+    title: process.env.npm_package_name || '',
     meta: [
-      { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: process.env.npm_package_description || "" }
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: "#fff" },
+  loading: { color: '#fff' },
   /*
   ** Global CSS
   */
   css: [
+    '@/assets/colors.scss'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -32,26 +33,31 @@ export default {
   /*
   ** Nuxt.js dev-modules
   */
-  buildModules: [
-    "@nuxt/typescript-build",
-    // Doc: https://github.com/nuxt-community/eslint-module
-    "@nuxtjs/eslint-module"
-  ],
+  buildModules: ['@nuxt/typescript-build'],
   /*
   ** Nuxt.js modules
   */
   modules: [
     // Doc: https://buefy.github.io/#/documentation
-    "nuxt-buefy",
+    'nuxt-buefy',
     // Doc: https://axios.nuxtjs.org/usage
-    "@nuxtjs/axios",
-    "@nuxtjs/auth"
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy',
+    '@nuxtjs/auth'
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    baseURL: 'http://localhost:3000/api',
+    proxyHeaders: false
+  },
+  /*
+  ** Proxy module configuration
+  */
+  proxy: {
+    '/api': 'http://localhost:5000'
   },
   /*
   ** Auth module configuration
@@ -60,8 +66,8 @@ export default {
     strategies: {
       local: {
         endpoints: {
-          login: { url: "login", method: "post", propertyName: "data.token" },
-          user: { url: "me", method: "get", propertyName: "data" },
+          login: { url: 'account/login', method: 'post', propertyName: 'data.token' },
+          user: { url: 'account', method: 'get', propertyName: 'data' },
           logout: false
         }
       }
@@ -77,4 +83,4 @@ export default {
     extend (config, ctx) {
     }
   }
-};
+}
