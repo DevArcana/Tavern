@@ -43,7 +43,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-$breakpoint: 1215px;
+$breakpoint: 1024px;
 
 .logo-container  {
   padding: 0;
