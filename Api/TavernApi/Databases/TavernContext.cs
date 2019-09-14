@@ -16,12 +16,13 @@ namespace TavernApi.Databases
     public DbSet<UserRole> UserRoles { get; set; }
 
     public DbSet<Category> Categories { get; set; }
-    //public DbSet<Comment> Comments { get; set; }
+    public DbSet<Comment> Comments { get; set; }
     public DbSet<Project> Projects { get; set; }
     public DbSet<ProjectRole> ProjectRoles { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
     {
       builder.UseSqlite("Data Source=tavern.db");
+      builder.UseLazyLoadingProxies();
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -35,6 +36,16 @@ namespace TavernApi.Databases
         .HasForeignKey(e => e.UserId);
         entity.HasOne(e => e.Role).WithMany(r => r.Users)
         .HasForeignKey(e => e.RoleId);
+      });
+
+      builder.Entity<CommentNode>(entity =>
+      {
+        entity.ToTable("CommentNode");
+        entity.HasKey(e => new { e.ParentId, e.ChildId });
+
+        entity.HasOne(e => e.Parent)
+          .WithMany(e => e.Children).HasForeignKey(e => e.ParentId);
+        entity.HasOne(e => e.Child).WithOne(e => e.Parent);
       });
     }
   }
