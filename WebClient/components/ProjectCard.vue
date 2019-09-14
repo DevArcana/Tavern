@@ -67,4 +67,8 @@ export default {
   /* "transparent" only works here because == rgba(0,0,0,0) */
   background-image: linear-gradient(to bottom, transparent, white);
 }
+
+.card-content {
+  padding-bottom: 0;
+}
 </style>
