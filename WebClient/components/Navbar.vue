@@ -47,7 +47,7 @@ export default Vue.extend({
 }
 
 .logo {
-  height: 100%;
+  height: 4rem;
   width: auto;
 }
 </style>
