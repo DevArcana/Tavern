@@ -9,20 +9,22 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using TavernApi.Identity;
 using TavernApi.Models;
+using TavernApi.Models.Identity;
 
 namespace TavernApi.Controllers
 {
   [ApiController]
-  [Route("api/account")]
+  [Route("api/user")]
   public class AccountController : Controller
   {
-    private readonly SignInManager<IdentityUser> _signInManager;
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly SignInManager<User> _signInManager;
+    private readonly UserManager<User> _userManager;
     private readonly IConfiguration _configuration;
 
-    public AccountController(SignInManager<IdentityUser> signInManager,
-      UserManager<IdentityUser> userManager, IConfiguration configuration)
+    public AccountController(SignInManager<User> signInManager,
+      UserManager<User> userManager, IConfiguration configuration)
     {
       _signInManager = signInManager;
       _userManager = userManager;
@@ -37,7 +39,7 @@ namespace TavernApi.Controllers
 
       if (result.Succeeded)
       {
-        var appUser = _userManager.Users.SingleOrDefault(u => u.UserName == login.Username);
+        var appUser = _userManager.Users.SingleOrDefault(u => u.Username == login.Username);
         return GenerateJwtToken(appUser.Email, appUser);
       }
 
@@ -48,9 +50,9 @@ namespace TavernApi.Controllers
     [Route("register")]
     public async Task<IActionResult> Register([FromBody]RegisterDTO model)
     {
-      var user = new IdentityUser
+      var user = new User
       {
-        UserName = model.Username,
+        Username = model.Username,
         Email = model.Email
       };
       var result = await _userManager.CreateAsync(user, model.Password);
@@ -63,18 +65,13 @@ namespace TavernApi.Controllers
       return new BadRequestResult();
     }
 
-    public IActionResult Index()
-    {
-      return View();
-    }
-
-    private string GenerateJwtToken(string email, IdentityUser user)
+    private string GenerateJwtToken(string email, User user)
     {
       var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id)
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
 
       var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtKey"]));
