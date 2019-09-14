@@ -1,9 +1,16 @@
 <template>
-  <div>Page</div>
+  <div>
+    <ProjectCard />
+  </div>
 </template>
 
 <script>
-export default {};
+import ProjectCard from "~/components/ProjectCard"
+export default {
+  components:{
+    ProjectCard
+  }
+};
 </script>
 
 <style>
