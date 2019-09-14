@@ -3,7 +3,7 @@
     <header class="card-header is-block">
       <div>
         <p class="card-header-title project-title">
-          New project
+          {{ project.title }}
         </p>
       </div>
       <div>
@@ -18,18 +18,7 @@
     <div class="card-content">
       <div class="content">
         <div>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem consequatur quidem nesciunt nihil soluta eos dignissimos nostrum optio aperiam, laboriosam laudantium at alias veniam quae sunt accusantium porro distinctio est.
-          Officiis, provident. Hic facilis doloribus perspiciatis ab debitis at, error, vel eligendi fuga enim voluptate voluptatibus ea ut recusandae iste natus, dicta blanditiis? Provident ratione facilis similique. Quod, ipsam autem!
-          Explicabo illo accusantium, at delectus harum assumenda unde voluptas quos vitae aperiam? Ipsam qui distinctio illum, nihil, cupiditate reiciendis provident eius possimus quis iure aspernatur eligendi quas sint deserunt nam.
-          Non iure deserunt vel necessitatibus tempore, ipsum explicabo ad ut iusto assumenda distinctio quis ea, est qui aperiam esse voluptates reprehenderit molestias labore, minus quo! Mollitia at velit provident voluptatum.
-          Harum necessitatibus dicta aspernatur laudantium modi eum nesciunt pariatur qui quas molestiae quam dolorum laboriosam, vel veritatis aliquam, excepturi voluptatibus fugit eligendi id minus? Necessitatibus quidem temporibus veniam iste magni?
-          Iste magnam accusantium eum temporibus tempore provident sit aliquam praesentium deleniti expedita minima quos molestiae, aliquid cupiditate est blanditiis voluptatem commodi beatae, inventore quia. At nisi atque dolor vitae adipisci!
-          Exercitationem soluta, laudantium rem repellendus doloremque, cumque fugit, debitis aliquam eos iusto saepe sed. Tempora maiores sit aliquam eaque harum necessitatibus voluptatem vero tempore facere, voluptate, nostrum culpa magnam ad?
-          Iste mollitia repudiandae tempora, nesciunt doloremque accusamus perferendis labore harum. Facere cupiditate blanditiis id reprehenderit dolorem aut exercitationem culpa doloribus. Voluptatem, ex illum maxime praesentium obcaecati sapiente quidem eligendi dolorum.
-          Qui nemo, voluptates iusto tenetur delectus ut quidem repellat neque et autem officiis necessitatibus odit excepturi assumenda fuga, quam ducimus, beatae vel dicta? Voluptas pariatur, esse cupiditate dolor excepturi quo!
-          Rerum, quibusdam! Ea, error. Voluptas doloremque quae modi quas. Cum explicabo, debitis repudiandae nemo ipsa qui voluptas nam quos illo rerum, excepturi animi sunt accusamus nesciunt tempora architecto dignissimos earum!
-          Neque atque quisquam quam ab debitis nam dolorum magnam veniam mollitia reiciendis. Illo cumque aspernatur perferendis blanditiis, incidunt consectetur assumenda, odit quo corrupti ipsam consequatur, saepe unde nobis aperiam expedita!
-          Qui perspiciatis vitae sapiente labore accusantium molestias ut quod id ullam nobis doloribus tempore dolorum a corrupti et facere sunt totam ab pariatur hic illo, nisi explicabo incidunt! Laboriosam, corporis.
+          {{ project.description }}
         </div>
         <div class="veil"></div>
       </div>
@@ -40,10 +29,17 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue, { PropOptions } from "vue"
+export default Vue.extend({
+  name: 'YourComponent',
 
-}
+  data () {
+    return {
+      message: 'This is a message'
+    }
+  }
+})
 </script>
 
 <style scoped>
