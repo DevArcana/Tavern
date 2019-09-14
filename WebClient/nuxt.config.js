@@ -44,13 +44,28 @@ export default {
     // Doc: https://buefy.github.io/#/documentation
     "nuxt-buefy",
     // Doc: https://axios.nuxtjs.org/usage
-    "@nuxtjs/axios"
+    "@nuxtjs/axios",
+    "@nuxtjs/auth"
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+  },
+  /*
+  ** Auth module configuration
+  */
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: "login", method: "post", propertyName: "data.token" },
+          user: { url: "me", method: "get", propertyName: "data" },
+          logout: false
+        }
+      }
+    }
   },
   /*
   ** Build configuration
