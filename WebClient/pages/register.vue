@@ -76,7 +76,7 @@ export default Vue.extend({
         //@ts-ignore
         await this.$auth.loginWith("local", {
           data: {
-            username: this.email,
+            username: this.username,
             password: this.password
           }
         });

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -63,6 +64,13 @@ namespace TavernApi.Controllers
       }
 
       return new BadRequestResult();
+    }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> GetUserInfo()
+    {
+      return new OkObjectResult("");
     }
 
     private string GenerateJwtToken(string email, User user)

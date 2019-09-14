@@ -91,6 +91,7 @@ namespace TavernApi
         app.UseHsts();
       }
 
+      app.UseAuthentication();
       app.UseCors();
       
       app.UseHttpsRedirection();

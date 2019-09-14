@@ -11,17 +11,30 @@
 
     <template slot="end">
       <b-navbar-item tag="div">
-        <div class="buttons">
-          <nuxt-link class="button is-primary" to="/register">Sign up</nuxt-link>
-          <nuxt-link class="button" to="/login">Log in</nuxt-link>
+        <div class="buttons" v-if="isAuthenticated">
+          <nuxt-link class="button is-primary" v-if="loggedInUser" to="/">{{ loggedInUser.username }}</nuxt-link>
+          <nuxt-link class="button">Log out</nuxt-link>
         </div>
+        <template v-else>
+          <div class="buttons">
+            <nuxt-link class="button is-primary" to="/register">Sign up</nuxt-link>
+            <nuxt-link class="button" to="/login">Log in</nuxt-link>
+          </div>
+        </template>
       </b-navbar-item>
     </template>
   </b-navbar>
 </template>
 
-<script>
-export default {};
+<script lang="ts">
+import Vue from "vue";
+import { mapGetters } from 'vuex'
+
+export default Vue.extend({
+  computed: {
+    ...mapGetters(['isAuthenticated', 'loggedInUser'])
+  }
+});
 </script>
 
 <style>

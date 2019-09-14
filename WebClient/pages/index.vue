@@ -27,7 +27,7 @@ export default Vue.extend({
       Tesasdasdasdsadsadsadsadasdsadasdasdasdasdsadasdasdasdasdsadsadsaadsadsadsadasdsadsadasdsadsadsadsadasdsadsadsadsadsadsadasdsadt
       Tesasdasdasdsadsadsadsadasdsadasdasdasdasdsadasdasdasdasdsadsadsaadsadsadsadasdsadsadasdsadsadsadsadasdsadsadsadsadsadsadasdsadt
       `},
-      {id: 1, title: "Test", description: `
+      {id: 2, title: "Test", description: `
       Short description
       `}
       ]
