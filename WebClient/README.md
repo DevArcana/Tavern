@@ -1,4 +1,4 @@
-# webclient
+# tavern
 
 > Tavern Web Client
 
