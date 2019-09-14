@@ -47,5 +47,4 @@ namespace TavernApi.Controllers
       return await Task.FromResult(new OkObjectResult(category));
     }
   }
-
 }

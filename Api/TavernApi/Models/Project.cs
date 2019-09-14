@@ -13,7 +13,28 @@ namespace TavernApi.Models
     public virtual IEnumerable<ProjectRole> Roles { get; set; }
     public string Description { get; set; }
     //public virtual IEnumerable<Comment> Comments { get; set; }
-    public DateTime Date {get; set;}
-       
+    public DateTime CreationTimeStamp { get; set; }
+  }
+
+  
+  public class ProjectDTO
+  {
+    public long Id { get; set; }
+    public string Title { get; set; }
+    public virtual CategoryDTO Category { get; set; }
+    public virtual IEnumerable<ProjectRoleDTO> Roles { get; set; }
+    public string Description { get; set; }
+    //public virtual IEnumerable<Comment> Comments { get; set; }
+    public DateTime CreationTimeStamp { get; set; }
+
+    public ProjectDTO(Project project)
+    {
+      Id = project.Id;
+      Title = project.Title;
+      Category = new CategoryDTO(project.Category);
+      Roles = project.Roles.Select(role=>new ProjectRoleDTO(role));
+      Description = project.Description;
+      CreationTimeStamp = project.CreationTimeStamp;
+    }
   }
 }
