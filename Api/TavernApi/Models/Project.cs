@@ -10,9 +10,9 @@ namespace TavernApi.Models
     public long Id { get; set; }
     public string Title { get; set; }
     public virtual Category Category { get; set; }
-    public virtual IEnumerable<Role> Roles { get; set; }
+    public virtual IEnumerable<ProjectRole> Roles { get; set; }
     public string Description { get; set; }
-    public virtual IEnumerable<Comment> Comments { get; set; }
+    //public virtual IEnumerable<Comment> Comments { get; set; }
     public DateTime Date {get; set;}
        
   }
