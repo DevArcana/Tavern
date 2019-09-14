@@ -3,27 +3,35 @@
     <header class="card-header is-block">
       <div>
         <p class="card-header-title">
-          Project title
+          New project
         </p>
       </div>
       <div>
-        <b-taglist class="card-header-title">
-          <b-tag type="is-info">Role1</b-tag>
-          <b-tag type="is-info">Role2</b-tag>
-          <b-tag type="is-info">Role3</b-tag>
-          <b-tag type="is-info">Role4</b-tag>
+        <b-taglist class="card-header-title roles-list">
+          <b-tag type="is-info">Coffee maker</b-tag>
+          <b-tag type="is-info">Garbage collector</b-tag>
+          <b-tag type="is-info">Motivator</b-tag>
+          <b-tag type="is-info">Other</b-tag>
         </b-taglist>
       </div>
     </header>
     <div class="card-content">
       <div class="content">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
         <br>
-        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
       </div>
     </div>
     <footer class="card-footer">
-      <a href="#" class="card-footer-item">Save</a>
+      <a href="#" class="card-footer-item">Details</a>
     </footer>
   </div>
 </template>
@@ -37,5 +45,9 @@ export default {
 <style scoped>
 .card-header-title {
   padding-bottom: 0;
+}
+.roles-list {
+  padding-top: 6px;
+  font-weight: 500;
 }
 </style>
