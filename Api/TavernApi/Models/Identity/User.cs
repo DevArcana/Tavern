@@ -14,4 +14,18 @@ namespace TavernApi.Models.Identity
     public string Email { get; set; }
     public virtual IEnumerable<UserRole> Roles { get; set; }
   }
+
+  public class UserDTO
+  {
+    public long Id { get; set; }
+    public string Username { get; set; }
+    public string Email { get; set; }
+
+    public UserDTO(User user)
+    {
+      Id = user.Id;
+      Username = user.Username;
+      Email = user.Email;
+    }
+  }
 }
