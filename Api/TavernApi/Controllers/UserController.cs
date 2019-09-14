@@ -68,9 +68,22 @@ namespace TavernApi.Controllers
 
     [HttpGet]
     [Authorize]
-    public async Task<IActionResult> GetUserInfo()
+    public async Task<ActionResult<UserDTO>> GetUserInfo()
     {
-      return new OkObjectResult("");
+      var userIdStr = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+      if (userIdStr == null)
+        return await Task.FromResult(new BadRequestResult());
+
+      if(long.TryParse(userIdStr, out var userId))
+      {
+        var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
+        if(user == null)
+          return await Task.FromResult(new BadRequestResult());
+
+        return await Task.FromResult(new OkObjectResult(new UserDTO(user)));
+      }
+
+      return await Task.FromResult(new BadRequestResult());
     }
 
     private string GenerateJwtToken(string email, User user)
