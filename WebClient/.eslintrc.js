@@ -38,6 +38,8 @@ module.exports = {
     "quotes": "off",
     "@typescript-eslint/quotes": ["error", "double"],
     "semi": "off",
-    "@typescript-eslint/semi": ["error", "always"]
+    "@typescript-eslint/semi": ["error", "always"],
+    "indent": "off",
+    "@typescript-eslint/indent": ["error", 2]
   }
 }

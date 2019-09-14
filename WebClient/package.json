@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@nuxt/typescript-runtime": "^0.1.5",
+    "@nuxtjs/auth": "^4.8.4",
     "@nuxtjs/axios": "^5.3.6",
     "nuxt": "^2.0.0",
     "nuxt-buefy": "^0.3.2"
