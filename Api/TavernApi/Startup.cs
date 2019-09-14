@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using TavernApi.Databases;
+using TavernApi.Models.Identity;
 
 namespace TavernApi
 {
@@ -43,8 +45,7 @@ namespace TavernApi
 
       services.AddDbContext<TavernContext>();
 
-      services.AddIdentity<IdentityUser, IdentityRole>()
-        .AddEntityFrameworkStores<TavernContext>()
+      services.AddIdentity<User, UserRole>()
         .AddDefaultTokenProviders();
 
       JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
@@ -68,6 +69,9 @@ namespace TavernApi
               ClockSkew = TimeSpan.Zero // remove delay of token when expire
             };
           });
+
+      services.AddTransient<IUserStore<User>, Identity.UserStore>();
+      services.AddTransient<IRoleStore<UserRole>, Identity.RoleStore>();
 
 
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
