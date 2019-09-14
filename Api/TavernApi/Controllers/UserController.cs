@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -63,6 +64,26 @@ namespace TavernApi.Controllers
       }
 
       return new BadRequestResult();
+    }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<ActionResult<UserDTO>> GetUserInfo()
+    {
+      var userIdStr = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+      if (userIdStr == null)
+        return await Task.FromResult(new BadRequestResult());
+
+      if(long.TryParse(userIdStr, out var userId))
+      {
+        var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
+        if(user == null)
+          return await Task.FromResult(new BadRequestResult());
+
+        return await Task.FromResult(new OkObjectResult(new UserDTO(user)));
+      }
+
+      return await Task.FromResult(new BadRequestResult());
     }
 
     private string GenerateJwtToken(string email, User user)
