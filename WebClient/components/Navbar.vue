@@ -1,7 +1,7 @@
 <template>
-  <b-navbar class="is-dark fixed-top">
+  <b-navbar class="is-dark fixed-top" role="navigation" aria-label="main navigation">
     <template slot="brand">
-      <b-navbar-item tag="router-link" :to="{ path: '/' }">
+      <b-navbar-item class="logo-container" tag="router-link" :to="{ path: '/' }">
         <img class="logo"
           src="~/assets/logo.png"
           alt="Tavern Social Platform"
@@ -42,17 +42,32 @@ export default Vue.extend({
 });
 </script>
 
-<style>
-.navbar {
-  height: 5rem;
+<style lang="scss">
+$breakpoint: 1215px;
+
+.logo-container  {
+  padding: 0;
 }
 
-.navbar-item, .navbar-brand, .navbar-burger {
-  height: 100%;
+.navbar {
+  @media screen and (max-width: $breakpoint) {
+    height: 2rem;
+  }
+
+  @media screen and (min-width: $breakpoint) {
+    height: 4rem;
+  }
 }
 
 .logo {
-  height: 4rem;
-  width: auto;
+  @media screen and (max-width: $breakpoint) {
+    height: auto;
+    width: 150px;
+  }
+
+  @media screen and (min-width: $breakpoint) {
+    height: auto;
+    width: 240px;
+  }
 }
 </style>
