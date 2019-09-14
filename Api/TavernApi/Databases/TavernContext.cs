@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TavernApi.Models.Identity;
+using TavernApi.Models;
 
 namespace TavernApi.Databases
 {
@@ -14,6 +15,10 @@ namespace TavernApi.Databases
     public DbSet<Role> Roles { get; set; }
     public DbSet<UserRole> UserRoles { get; set; }
 
+    public DbSet<Category> Categories { get; set; }
+    //public DbSet<Comment> Comments { get; set; }
+    public DbSet<Project> Projects { get; set; }
+    public DbSet<ProjectRole> ProjectRoles { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
     {
       builder.UseSqlite("Data Source=tavern.db");
