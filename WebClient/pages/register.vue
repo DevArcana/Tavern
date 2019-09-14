@@ -69,7 +69,7 @@ export default {
 
         await this.$auth.loginWith("local", {
           data: {
-            username: this.username,
+            email: this.email,
             password: this.password
           }
         });
