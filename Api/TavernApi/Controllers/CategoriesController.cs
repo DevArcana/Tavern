@@ -11,14 +11,10 @@ namespace TavernApi.Controllers
 {
   [Route("api/categories")]
   [ApiController]
-  public class CategoryController : Controller
+  public class CategoryController : TavernController
   {
-    private readonly TavernContext _context;
-
-    public CategoryController(TavernContext context)
-    {
-      _context = context;
-    }
+    public CategoryController(TavernContext context) : base(context)
+    {}
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<CategoryDTO>>> GetCategories()

@@ -11,14 +11,10 @@ namespace TavernApi.Controllers
 {
   [Route("api/roles")]
   [ApiController]
-  public class ProjectRoleController : Controller
+  public class ProjectRoleController : TavernController
   {
-    private readonly TavernContext _context;
-
-    public ProjectRoleController(TavernContext context)
-    {
-      _context = context;
-    }
+    public ProjectRoleController(TavernContext context) : base(context)
+    {}
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ProjectRoleDTO>>> GetRoles()
