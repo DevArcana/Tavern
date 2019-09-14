@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TavernApi.Models
+namespace TavernApi.Helpers
 {
   public abstract class PagedResultBase
   {
@@ -14,7 +14,6 @@ namespace TavernApi.Models
 
     public int FirstRowOnPage
     {
-
       get { return (CurrentPage - 1) * PageSize + 1; }
     }
 
