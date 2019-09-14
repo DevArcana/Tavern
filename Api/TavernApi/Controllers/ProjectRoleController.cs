@@ -9,7 +9,7 @@ using TavernApi.Models;
 
 namespace TavernApi.Controllers
 {
-  [Route("api/role")]
+  [Route("api/roles")]
   [ApiController]
   public class ProjectRoleController : Controller
   {

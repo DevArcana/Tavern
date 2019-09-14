@@ -9,7 +9,7 @@ using TavernApi.Models;
 
 namespace TavernApi.Controllers
 {
-  [Route("api/category")]
+  [Route("api/categories")]
   [ApiController]
   public class CategoryController : Controller
   {
