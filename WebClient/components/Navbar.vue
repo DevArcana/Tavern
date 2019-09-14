@@ -13,7 +13,7 @@
       <b-navbar-item tag="div">
         <div class="buttons" v-if="isAuthenticated">
           <nuxt-link class="button is-primary" v-if="loggedInUser" to="/">{{ loggedInUser.username }}</nuxt-link>
-          <nuxt-link class="button">Log out</nuxt-link>
+          <button class="button" @click="logout">Log out</button>
         </div>
         <template v-else>
           <div class="buttons">
@@ -31,6 +31,11 @@ import Vue from "vue";
 import { mapGetters } from 'vuex'
 
 export default Vue.extend({
+  methods: {
+    async logout() {
+      await this.$auth.logout();
+    }
+  },
   computed: {
     ...mapGetters(['isAuthenticated', 'loggedInUser'])
   }
