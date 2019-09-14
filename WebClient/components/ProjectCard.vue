@@ -49,7 +49,7 @@ export default Vue.extend({
   margin-bottom: 0.75rem;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
-  border-radius: 1rem;
+  border-radius: 4px;
 }
 .card-header-title {
   padding-bottom: 0;

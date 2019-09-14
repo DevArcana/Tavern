@@ -1,6 +1,10 @@
 <template>
-  <div>
-    <ProjectCard v-for="project in projects" :key="project.id" :project="project" />
+  <div class="feed">
+    <div class="columns">
+      <div class="column is-8 is-offset-2">
+        <ProjectCard v-for="project in projects" :key="project.id" :project="project" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -37,5 +41,8 @@ export default Vue.extend({
 });
 </script>
 
-<style>
+<style scoped>
+.feed {
+  padding-top: 2rem;
+}
 </style>
