@@ -1,7 +1,13 @@
 <template>
   <div>
     <Navbar />
-    <nuxt />
+    <div class="columns">
+      <div class="column is-8 is-offset-2">
+        <div class="content-container">
+          <nuxt />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -16,4 +22,7 @@ export default {
 </script>
 
 <style>
+.content-container {
+  margin-top: 1rem;
+}
 </style>

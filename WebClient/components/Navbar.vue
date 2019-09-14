@@ -11,10 +11,36 @@
 
     <template slot="end">
       <b-navbar-item tag="div">
-        <div class="buttons" v-if="isAuthenticated">
-          <nuxt-link class="button is-primary" v-if="loggedInUser" to="/">{{ loggedInUser.username }}</nuxt-link>
-          <button class="button" @click="logout">Log out</button>
-        </div>
+        <b-dropdown v-if="isAuthenticated"
+          v-model="navigation"
+          :change="navigate()"
+          position="is-bottom-left"
+          aria-role="menu">
+          <a
+            class="navbar-item"
+            slot="trigger"
+            role="button">
+            <span>Menu</span>
+            <b-icon icon="menu-down"></b-icon>
+          </a>
+
+          <b-dropdown-item custom aria-role="menuitem">
+              Logged as <b>{{ loggedInUser.username }}</b>
+          </b-dropdown-item>
+          <hr class="dropdown-divider">
+          <b-dropdown-item value="createProject">
+              Create new project
+          </b-dropdown-item>
+          <hr class="dropdown-divider">
+          <b-dropdown-item value="settings">
+              <b-icon icon="settings"></b-icon>
+              Settings
+          </b-dropdown-item>
+          <b-dropdown-item value="logout" aria-role="menuitem">
+              <b-icon icon="logout"></b-icon>
+              Logout
+          </b-dropdown-item>
+        </b-dropdown>
         <template v-else>
           <div class="buttons">
             <nuxt-link class="button is-primary" to="/register">Sign up</nuxt-link>
@@ -31,9 +57,23 @@ import Vue from "vue";
 import { mapGetters } from 'vuex'
 
 export default Vue.extend({
+  data () {
+    return {
+      navigation: ""
+    } as {
+      navigation: string
+    }
+  },
   methods: {
-    async logout() {
-      await this.$auth.logout();
+    navigate() {
+      if (!this.navigation || this.navigation === "") {
+        return;
+      } else if (this.navigation === "logout") {
+        this.$auth.logout();
+        this.$router.push("/");
+      } else if(this.navigation === "createProject") {
+        this.$router.push("/projects/create");
+      }
     }
   },
   computed: {
