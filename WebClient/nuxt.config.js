@@ -42,6 +42,7 @@ export default {
     'nuxt-buefy',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/proxy',
     '@nuxtjs/auth'
   ],
   /*
@@ -49,7 +50,14 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: 'http://localhost:5000/api'
+    baseURL: 'http://localhost:3000/api',
+    proxyHeaders: false
+  },
+  /*
+  ** Proxy module configuration
+  */
+  proxy: {
+    '/api': 'http://localhost:5000'
   },
   /*
   ** Auth module configuration
@@ -58,8 +66,8 @@ export default {
     strategies: {
       local: {
         endpoints: {
-          login: { url: 'login', method: 'post', propertyName: 'data.token' },
-          user: { url: 'me', method: 'get', propertyName: 'data' },
+          login: { url: 'account/login', method: 'post', propertyName: 'data.token' },
+          user: { url: 'account', method: 'get', propertyName: 'data' },
           logout: false
         }
       }

@@ -33,11 +33,12 @@ namespace TavernApi
     {
       services.AddCors(options =>
       {
-        options.AddPolicy("CORS", builder =>
+        options.AddDefaultPolicy(builder =>
         {
           builder.AllowAnyOrigin();
           builder.AllowAnyHeader();
           builder.AllowAnyMethod();
+          builder.SetIsOriginAllowed(origin => true);
         });
       });
 
@@ -86,6 +87,8 @@ namespace TavernApi
         app.UseHsts();
       }
 
+      app.UseCors();
+      
       app.UseHttpsRedirection();
       app.UseMvc();
     }
