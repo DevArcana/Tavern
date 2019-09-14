@@ -67,7 +67,7 @@ export default Vue.extend({
   methods: {
     async register() {
       try {
-        await this.$axios.post("account/register", {
+        await this.$axios.post("user/register", {
           username: this.username,
           email: this.email,
           password: this.password
@@ -76,7 +76,7 @@ export default Vue.extend({
         //@ts-ignore
         await this.$auth.loginWith("local", {
           data: {
-            email: this.email,
+            username: this.email,
             password: this.password
           }
         });
