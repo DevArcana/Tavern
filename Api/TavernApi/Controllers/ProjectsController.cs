@@ -18,6 +18,18 @@ namespace TavernApi.Controllers
     {}
 
     [HttpGet]
+    [Route("{id}")]
+    public async Task<ActionResult<ProjectDTO>> GetProject(long id)
+    {
+      var project = await _context.Projects.FindAsync(id);
+
+      if (project == null)
+        return await Task.FromResult(new BadRequestResult());
+
+      return await Task.FromResult(new OkObjectResult(new ProjectDTO(project)));
+    }
+
+    [HttpGet]
     public async Task<ActionResult<IEnumerable<Project>>> GetProjects(int pageSize, int page = 1)
     {
       var projects = _context.Projects.GetPaged(page, pageSize);
