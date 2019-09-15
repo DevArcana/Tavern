@@ -95,7 +95,7 @@ export default Vue.extend({
           description: this.description
         });
 
-        this.$router.push("/projects/" + response.data);
+        this.$router.push("/projects/" + response.data.id);
       } catch (e) {
         console.log(e);
         this.error = "Something went wrong.";
