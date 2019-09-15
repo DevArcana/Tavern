@@ -16,13 +16,10 @@
           :change="navigate()"
           position="is-bottom-left"
           aria-role="menu">
-          <a
-            class="navbar-item"
-            slot="trigger"
-            role="button">
+          <button class="button is-light" slot="trigger">
             <span>Menu</span>
             <b-icon icon="menu-down"></b-icon>
-          </a>
+          </button>
 
           <b-dropdown-item custom aria-role="menuitem">
               Logged as <b>{{ loggedInUser.username }}</b>
@@ -83,7 +80,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-$breakpoint: 1024px;
+$breakpoint: 1215px;
 
 .logo-container  {
   padding: 0;
