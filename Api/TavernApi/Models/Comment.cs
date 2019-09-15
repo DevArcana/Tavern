@@ -33,21 +33,28 @@ namespace TavernApi.Models
     public long ProjectId { get; set; }
     public long? ParentId { get; set; }
     public IEnumerable<CommentDTO> Children { get; set; }
-    public User Creator { get; set; }
+    public UserDTO Creator { get; set; }
     public DateTime CreationTimeStamp { get; set; }
 
     public CommentDTO(Comment comment, long remainingDepth) 
       : this(comment, remainingDepth, null)
     {}
-    public CommentDTO(Comment comment, long remainingDepth, long? parentId, User creator, DateTime stamp)
+    public CommentDTO(Comment comment, long remainingDepth, long? parentId)
     {
       Id = comment.Id;
       Content = comment.Content;
       ProjectId = comment.ProjectId;
       ParentId = parentId;
       Children = (comment.Children != null && remainingDepth > 0) ? comment.Children.Select(n => new CommentDTO(n.Child, remainingDepth--, Id)) : null;
-      Creator = creator;
-      CreationTimeStamp = stamp;
+      Creator = new UserDTO(comment.Creator);
+      CreationTimeStamp = comment.CreationTimeStamp;
     }
+  }
+
+  public class CommentDCO
+  {
+    public long ProjectId { get; set; }
+    public long? ParentId { get; set; }
+    public string Content { get; set; }
   }
 }

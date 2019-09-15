@@ -16,7 +16,7 @@ namespace TavernApi.Controllers
   public class CommentController : TavernController
   {
     public CommentController(TavernContext context) : base(context)
-    {}
+    { }
 
     [HttpGet]
     [Route("{projectId}")]
@@ -40,31 +40,34 @@ namespace TavernApi.Controllers
 
     [HttpPost]
     [Authorize]
-    public async Task<IActionResult> CreateComment([FromBody]NewComment model)
+    public async Task<IActionResult> CreateComment([FromBody]CommentDCO model)
     {
-     var userIdStr = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-      if (userIdStr == null)
+      var user = await GetLoggedUser();
+      if (user == null)
         return await Task.FromResult(new BadRequestResult());
 
-      if(long.TryParse(userIdStr, out var userId))
+      var parent = (model.ParentId != null) ? await _context.Comments.FindAsync(model.ParentId) : null;
+      if (model.ParentId != null && parent == null)
+        return await Task.FromResult(new BadRequestResult());
+
+      var node = (parent != null) ? new CommentNode
       {
-        var user = _context.Users.FirstOrDefault(u => u.Id == userId);
-        if(user == null)
-          return await Task.FromResult(new BadRequestResult());
+        Parent = parent,
+        ParentId = parent.Id
+      } : null;
 
+      var comment = new Comment
+      {
+        Content = model.Content,
+        ProjectId = model.ProjectId,
+        CreationTimeStamp = DateTime.Now,
+        Creator = user,
+        Parent = node
+      };
 
-          var comment = new Comment
-          {
-            Content = model.Content
-          };
-
-        _ = DateTime.Now;
-
-        await _context.Comments.AddAsync(comment);
-        await _context.SaveChangesAsync();
-        return await Task.FromResult(new OkObjectResult(comment));
-      }
-      return await Task.FromResult(new BadRequestResult());
+      await _context.Comments.AddAsync(comment);
+      await _context.SaveChangesAsync();
+      return await Task.FromResult(new OkObjectResult(new CommentDTO(comment, 0)));
     }
   }
 }

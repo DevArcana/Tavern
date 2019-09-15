@@ -21,20 +21,6 @@ namespace TavernApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comments",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Content = table.Column<string>(nullable: true),
-                    ProjectId = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Comments", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Functions",
                 columns: table => new
                 {
@@ -76,27 +62,25 @@ namespace TavernApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CommentNodes",
+                name: "Comments",
                 columns: table => new
                 {
-                    ParentId = table.Column<long>(nullable: false),
-                    ChildId = table.Column<long>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Content = table.Column<string>(nullable: true),
+                    ProjectId = table.Column<long>(nullable: false),
+                    CreatorId = table.Column<long>(nullable: true),
+                    CreationTimeStamp = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CommentNodes", x => new { x.ParentId, x.ChildId });
+                    table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CommentNodes_Comments_ChildId",
-                        column: x => x.ChildId,
-                        principalTable: "Comments",
+                        name: "FK_Comments_Users_CreatorId",
+                        column: x => x.CreatorId,
+                        principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CommentNodes_Comments_ParentId",
-                        column: x => x.ParentId,
-                        principalTable: "Comments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -153,6 +137,30 @@ namespace TavernApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CommentNodes",
+                columns: table => new
+                {
+                    ParentId = table.Column<long>(nullable: false),
+                    ChildId = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CommentNodes", x => new { x.ParentId, x.ChildId });
+                    table.ForeignKey(
+                        name: "FK_CommentNodes_Comments_ChildId",
+                        column: x => x.ChildId,
+                        principalTable: "Comments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CommentNodes_Comments_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Comments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProjectFunctions",
                 columns: table => new
                 {
@@ -181,6 +189,11 @@ namespace TavernApi.Migrations
                 table: "CommentNodes",
                 column: "ChildId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_CreatorId",
+                table: "Comments",
+                column: "CreatorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectFunctions_FunctionId",
