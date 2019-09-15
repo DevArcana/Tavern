@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using TavernApi.Databases;
 using TavernApi.Identity;
 using TavernApi.Models;
 using TavernApi.Models.Identity;
@@ -18,14 +19,14 @@ namespace TavernApi.Controllers
 {
   [ApiController]
   [Route("api/user")]
-  public class AccountController : Controller
+  public class AccountController : TavernController
   {
     private readonly SignInManager<User> _signInManager;
     private readonly UserManager<User> _userManager;
     private readonly IConfiguration _configuration;
 
     public AccountController(SignInManager<User> signInManager,
-      UserManager<User> userManager, IConfiguration configuration)
+      UserManager<User> userManager, IConfiguration configuration, TavernContext context) : base(context)
     {
       _signInManager = signInManager;
       _userManager = userManager;
@@ -70,20 +71,12 @@ namespace TavernApi.Controllers
     [Authorize]
     public async Task<ActionResult<UserDTO>> GetUserInfo()
     {
-      var userIdStr = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-      if (userIdStr == null)
+      var user = await GetLoggedUser();
+
+      if (user == null)
         return await Task.FromResult(new BadRequestResult());
-
-      if(long.TryParse(userIdStr, out var userId))
-      {
-        var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
-        if(user == null)
-          return await Task.FromResult(new BadRequestResult());
-
+      else
         return await Task.FromResult(new OkObjectResult(new UserDTO(user)));
-      }
-
-      return await Task.FromResult(new BadRequestResult());
     }
 
     private string GenerateJwtToken(string email, User user)

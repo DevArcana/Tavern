@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using TavernApi.Models.Identity;
@@ -11,9 +13,9 @@ namespace TavernApi.Models
     public long Id { get; set; }
     public string Title { get; set; }
     public virtual Category Category { get; set; }
-    public virtual IEnumerable<ProjectRole> Roles { get; set; }
+    [NotMapped]
+    public virtual IEnumerable<ProjectFunction> Functions { get; set; }
     public string Description { get; set; }
-    //public virtual IEnumerable<Comment> Comments { get; set; }
     public DateTime CreationTimeStamp { get; set; }
     public virtual User Creator { get; set; }
   }
@@ -23,22 +25,29 @@ namespace TavernApi.Models
   {
     public long Id { get; set; }
     public string Title { get; set; }
-    public virtual CategoryDTO Category { get; set; }
-    public virtual IEnumerable<ProjectRoleDTO> Roles { get; set; }
+    public CategoryDTO Category { get; set; }
+    public IEnumerable<FunctionDTO> Functions { get; set; }
     public string Description { get; set; }
-    //public virtual IEnumerable<Comment> Comments { get; set; }
     public DateTime CreationTimeStamp { get; set; }
-    public virtual UserDTO Creator { get; set; }
+    public UserDTO Creator { get; set; }
 
     public ProjectDTO(Project project)
     {
       Id = project.Id;
       Title = project.Title;
       Category = new CategoryDTO(project.Category);
-      Roles = project.Roles.Select(role => new ProjectRoleDTO(role));
+      Functions = project.Functions.Select(fun => new FunctionDTO(fun.Function));
       Description = project.Description;
       CreationTimeStamp = project.CreationTimeStamp;
       Creator = new UserDTO(project.Creator);
     }
+  }
+
+  public class ProjectDCO
+  {
+    public string Title { get; set; }
+    public long CategoryId { get; set; }
+    public IEnumerable<long> FunctionIds { get; set; }
+    public string Description { get; set; }
   }
 }
