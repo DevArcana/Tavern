@@ -21,6 +21,7 @@ export default Vue.extend({
   asyncData ({ params, error }) {
     return axios.get(`http://localhost:5000/api/projects/${params.id}`)
     .then((res) => {
+      console.log(res.data)
       return { project: res.data as Project }
     })
     .catch((e) => {

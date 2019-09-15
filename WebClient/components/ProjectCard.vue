@@ -24,7 +24,7 @@
       </div>
     </div>
     <footer class="card-footer">
-      <a href="#" class="card-footer-item">Details</a>
+      <nuxt-link class="card-footer-item" :to="'/projects/' + project.id">Details</nuxt-link>
     </footer>
   </div>
 </template>

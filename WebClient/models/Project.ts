@@ -5,7 +5,7 @@ export default interface Project {
   id: number;
   title: string;
   category: Category;
-  roles: Role[];
+  functions: Role[];
   description: string;
   creationTimeStamp: string;
 }

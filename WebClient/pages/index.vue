@@ -8,28 +8,25 @@
 import Vue from "vue";
 import ProjectCard from "~/components/ProjectCard.vue"
 import Project from "~/models/Project";
+import axios from "axios";
 
 export default Vue.extend({
   data () {
     return {
-      projects: [
-        {id: 1, title: "Test", description: `
-      Tesasdasdasdsadsadsadsadasdsadasdasdasdasdsadasdasdasdasdsadsadsaadsadsadsadasdsadsadasdsadsadsadsadasdsadsadsadsadsadsadasdsadt
-      Tesasdasdasdsadsadsadsadasdsadasdasdasdasdsadasdasdasdasdsadsadsaadsadsadsadasdsadsadasdsadsadsadsadasdsadsadsadsadsadsadasdsadt
-      Tesasdasdasdsadsadsadsadasdsadasdasdasdasdsadasdasdasdasdsadsadsaadsadsadsadasdsadsadasdsadsadsadsadasdsadsadsadsadsadsadasdsadt
-      Tesasdasdasdsadsadsadsadasdsadasdasdasdasdsadasdasdasdasdsadsadsaadsadsadsadasdsadsadasdsadsadsadsadasdsadsadsadsadsadsadasdsadt
-      Tesasdasdasdsadsadsadsadasdsadasdasdasdasdsadasdasdasdasdsadsadsaadsadsadsadasdsadsadasdsadsadsadsadasdsadsadsadsadsadsadasdsadt
-      Tesasdasdasdsadsadsadsadasdsadasdasdasdasdsadasdasdasdasdsadsadsaadsadsadsadasdsadsadasdsadsadsadsadasdsadsadsadsadsadsadasdsadt
-      Tesasdasdasdsadsadsadsadasdsadasdasdasdasdsadasdasdasdasdsadsadsaadsadsadsadasdsadsadasdsadsadsadsadasdsadsadsadsadsadsadasdsadt
-      Tesasdasdasdsadsadsadsadasdsadasdasdasdasdsadasdasdasdasdsadsadsaadsadsadsadasdsadsadasdsadsadsadsadasdsadsadsadsadsadsadasdsadt
-      `},
-      {id: 2, title: "Test", description: `
-      Short description
-      `}
-      ]
+      projects: []
     } as {
       projects: Project[];
     }
+  },
+  asyncData ({ params, error }) {
+    return axios.get(`http://localhost:5000/api/projects?pageSize=100`)
+    .then((res) => {
+      return { projects: res.data as Project[] }
+    })
+    .catch((e) => {
+      console.log(e);
+      error({ statusCode: 404, message: 'Failed to fetch projects' })
+    })
   },
   components: {
     ProjectCard
