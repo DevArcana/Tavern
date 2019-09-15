@@ -29,7 +29,7 @@ namespace TavernApi.Databases
     {
       builder.Entity<UserRole>(entity =>
       {
-        entity.ToTable("UserRole");
+        entity.ToTable("UserRoles");
         entity.HasKey(e => new { e.UserId, e.RoleId });
 
         entity.HasOne(e => e.User).WithMany(u => u.Roles)
@@ -40,12 +40,23 @@ namespace TavernApi.Databases
 
       builder.Entity<CommentNode>(entity =>
       {
-        entity.ToTable("CommentNode");
+        entity.ToTable("CommentNodes");
         entity.HasKey(e => new { e.ParentId, e.ChildId });
 
         entity.HasOne(e => e.Parent)
           .WithMany(e => e.Children).HasForeignKey(e => e.ParentId);
         entity.HasOne(e => e.Child).WithOne(e => e.Parent);
+      });
+
+      builder.Entity<ProjectFunction>(entity =>
+      {
+        entity.ToTable("ProjectFunctions");
+        entity.HasKey(e => new { e.ProjectId, e.FunctionId });
+
+        entity.HasOne(e => e.Project).WithMany(p => p.Functions)
+        .HasForeignKey(e => e.ProjectId);
+        entity.HasOne(e => e.Function).WithMany(f => f.Projects)
+        .HasForeignKey(e => e.FunctionId);
       });
     }
   }

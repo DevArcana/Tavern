@@ -49,14 +49,20 @@ namespace TavernApi.Controllers
       if(creator == null)
         return await Task.FromResult(new BadRequestResult());
 
-      var roles = new List<Function>();
-      foreach(var roleId in model.RolesId)
+      var functions = new List<ProjectFunction>();
+      foreach(var funId in model.FunctionIds)
       {
-        var role = await _context.Functions.FindAsync(roleId);
-        if (role == null)
+        var fun = await _context.Functions.FindAsync(funId);
+        if (fun == null)
           return await Task.FromResult(new BadRequestResult());
 
-        roles.Add(role);
+        var cross = new ProjectFunction
+        {
+          Function = fun,
+          FunctionId = funId
+        };
+
+        functions.Add(cross);
       }
 
       var project = new Project
@@ -66,7 +72,7 @@ namespace TavernApi.Controllers
         Creator = creator,
         CreationTimeStamp = DateTime.Now,
         Description = model.Description,
-        Functions = roles
+        Functions = functions
       };
 
       await _context.Projects.AddAsync(project);

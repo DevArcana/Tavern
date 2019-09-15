@@ -14,7 +14,7 @@ namespace TavernApi.Models
     public string Title { get; set; }
     public virtual Category Category { get; set; }
     [NotMapped]
-    public virtual IEnumerable<Function> Functions { get; set; }
+    public virtual IEnumerable<ProjectFunction> Functions { get; set; }
     public string Description { get; set; }
     public DateTime CreationTimeStamp { get; set; }
     public virtual User Creator { get; set; }
@@ -36,7 +36,7 @@ namespace TavernApi.Models
       Id = project.Id;
       Title = project.Title;
       Category = new CategoryDTO(project.Category);
-      Functions = project.Functions.Select(fun => new FunctionDTO(fun));
+      Functions = project.Functions.Select(fun => new FunctionDTO(fun.Function));
       Description = project.Description;
       CreationTimeStamp = project.CreationTimeStamp;
       Creator = new UserDTO(project.Creator);
@@ -47,7 +47,7 @@ namespace TavernApi.Models
   {
     public string Title { get; set; }
     public long CategoryId { get; set; }
-    public IEnumerable<long> RolesId { get; set; }
+    public IEnumerable<long> FunctionIds { get; set; }
     public string Description { get; set; }
   }
 }

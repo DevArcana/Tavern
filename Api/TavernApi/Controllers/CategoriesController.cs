@@ -14,7 +14,7 @@ namespace TavernApi.Controllers
   public class CategoryController : TavernController
   {
     public CategoryController(TavernContext context) : base(context)
-    {}
+    { }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<CategoryDTO>>> GetCategories()

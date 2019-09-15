@@ -9,7 +9,7 @@ using TavernApi.Databases;
 namespace TavernApi.Migrations
 {
     [DbContext(typeof(TavernContext))]
-    [Migration("20190914235933_init")]
+    [Migration("20190915004653_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,7 +55,19 @@ namespace TavernApi.Migrations
                     b.HasIndex("ChildId")
                         .IsUnique();
 
-                    b.ToTable("CommentNode");
+                    b.ToTable("CommentNodes");
+                });
+
+            modelBuilder.Entity("TavernApi.Models.Function", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Functions");
                 });
 
             modelBuilder.Entity("TavernApi.Models.Identity.Role", b =>
@@ -96,7 +108,7 @@ namespace TavernApi.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRole");
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("TavernApi.Models.Project", b =>
@@ -123,16 +135,17 @@ namespace TavernApi.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("TavernApi.Models.ProjectRole", b =>
+            modelBuilder.Entity("TavernApi.Models.ProjectFunction", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<long>("ProjectId");
 
-                    b.Property<string>("Name");
+                    b.Property<long>("FunctionId");
 
-                    b.HasKey("Id");
+                    b.HasKey("ProjectId", "FunctionId");
 
-                    b.ToTable("ProjectRoles");
+                    b.HasIndex("FunctionId");
+
+                    b.ToTable("ProjectFunctions");
                 });
 
             modelBuilder.Entity("TavernApi.Models.CommentNode", b =>
@@ -170,6 +183,19 @@ namespace TavernApi.Migrations
                     b.HasOne("TavernApi.Models.Identity.User", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatorId");
+                });
+
+            modelBuilder.Entity("TavernApi.Models.ProjectFunction", b =>
+                {
+                    b.HasOne("TavernApi.Models.Function", "Function")
+                        .WithMany("Projects")
+                        .HasForeignKey("FunctionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TavernApi.Models.Project", "Project")
+                        .WithMany("Functions")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
