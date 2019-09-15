@@ -7,12 +7,9 @@
         </p>
       </div>
       <div>
-        <b-taglist class="card-header-title roles-list">
-          <b-tag type="is-info">Coffee maker</b-tag>
-          <b-tag type="is-info">Garbage collector</b-tag>
-          <b-tag type="is-info">Motivator</b-tag>
-          <b-tag type="is-info">Life meaning seeker</b-tag>
-        </b-taglist>
+      <b-taglist class="card-header-title roles-list">
+        <b-tag v-for="role in project.functions" :key="role.id" type="is-info">{{role.name}}</b-tag>
+      </b-taglist>
       </div>
     </header>
     <div class="card-content">
