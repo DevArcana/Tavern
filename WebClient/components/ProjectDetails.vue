@@ -27,11 +27,8 @@
     </div>
   </div>
 
-  <div class="box">
-    <div class="content">
-      <h3>Comment Section</h3>
-      <Comment v-for="comment in comments" :key="comment.id" :comment="comment"></Comment>
-    </div>
+  <div class="content">
+    <Comment v-for="comment in comments" :key="comment.id" :comment="comment"></Comment>
   </div>
 </div>
 </template>
@@ -82,5 +79,8 @@ export default Vue.extend({
 });
 </script>
 
-<style>
+<style scoped>
+.comments {
+  background-color: white;
+}
 </style>

@@ -79,32 +79,5 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss">
-$breakpoint: 1215px;
-
-.logo-container  {
-  padding: 0;
-}
-
-.navbar {
-  @media screen and (max-width: $breakpoint) {
-    height: 2rem;
-  }
-
-  @media screen and (min-width: $breakpoint) {
-    height: 4rem;
-  }
-}
-
-.logo {
-  @media screen and (max-width: $breakpoint) {
-    height: auto;
-    width: 150px;
-  }
-
-  @media screen and (min-width: $breakpoint) {
-    height: auto;
-    width: 240px;
-  }
-}
+<style>
 </style>
