@@ -30,7 +30,7 @@
   <div class="box">
     <div class="content">
       <h3>Comment Section</h3>
-      <div v-for="comment in comments" :key="comment.id" class="card">{{ comment.content }}</div>
+      <Comment v-for="comment in comments" :key="comment.id" :comment="comment"></Comment>
     </div>
   </div>
 </div>
@@ -39,39 +39,45 @@
 <script lang="ts">
 import Vue, { PropOptions } from "vue"
 import Project from "~/models/Project";
-import Comment from "~/models/Comment";
+import Comment from "~/components/Comment.vue";
 
 export default Vue.extend({
   data() {
     return {
-      comment: "",
-      comments: [{id:1, content: "Test", projectId: 1, children: []}]
+      comment: ""
     } as {
       comment: string;
-      comments: Comment[];
     }
   },
   
   methods: {
-    async submit() {
+    async submitComment() {
       try {
-        const response = await this.$axios.post("projects", {
+        const response = await this.$axios.post("comments", {
           projectId: this.project.id,
           content: this.comment
         });
 
-
+        location.reload();
       } catch (e) {
         console.log(e);
       }
     },
   },
 
+  components: {
+    Comment
+  },
+
   props: {
     project: {
       type: Object,
       required: true
-    } as PropOptions<Project>
+    } as PropOptions<Project>,
+    comments: {
+      type: Array,
+      required: true
+    } as PropOptions<any[]>
   }
 });
 </script>
