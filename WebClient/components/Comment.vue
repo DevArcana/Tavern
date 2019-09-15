@@ -28,6 +28,7 @@
 import Vue, { PropOptions } from "vue";
 import Project from "~/models/Project";
 import Comment from "~/models/Comment";
+import { mapGetters } from 'vuex'
 
 export default Vue.extend({
   name: "Comment",
@@ -58,6 +59,9 @@ export default Vue.extend({
       type: Object,
       required: true
     } as PropOptions<Comment>
+  },
+  computed: {
+    ...mapGetters(['isAuthenticated', 'loggedInUser'])
   }
 });
 </script>

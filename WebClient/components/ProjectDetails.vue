@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <div class="box">
+  <div class="box" v-if="isAuthenticated">
     <div class="content">
       <form action="" method="post" @submit.prevent="submitComment">
         <b-field label="Comment on this project">
@@ -37,6 +37,7 @@
 import Vue, { PropOptions } from "vue"
 import Project from "~/models/Project";
 import Comment from "~/components/Comment.vue";
+import { mapGetters } from 'vuex'
 
 export default Vue.extend({
   data() {
@@ -75,6 +76,9 @@ export default Vue.extend({
       type: Array,
       required: true
     } as PropOptions<any[]>
+  },
+  computed: {
+    ...mapGetters(['isAuthenticated', 'loggedInUser'])
   }
 });
 </script>
