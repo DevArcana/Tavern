@@ -11,7 +11,7 @@ namespace TavernApi.Models
     public long Id { get; set; }
     public virtual Project Project { get; set; }
     public virtual User User { get; set; }
-    public virtual ProjectRole Role { get; set; }
+    public virtual Function Role { get; set; }
     public bool Accepted { get; set; }
 
   }

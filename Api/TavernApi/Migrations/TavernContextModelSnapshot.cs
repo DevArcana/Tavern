@@ -53,7 +53,19 @@ namespace TavernApi.Migrations
                     b.HasIndex("ChildId")
                         .IsUnique();
 
-                    b.ToTable("CommentNode");
+                    b.ToTable("CommentNodes");
+                });
+
+            modelBuilder.Entity("TavernApi.Models.Function", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Functions");
                 });
 
             modelBuilder.Entity("TavernApi.Models.Identity.Role", b =>
@@ -94,7 +106,7 @@ namespace TavernApi.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRole");
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("TavernApi.Models.Project", b =>
@@ -106,6 +118,8 @@ namespace TavernApi.Migrations
 
                     b.Property<DateTime>("CreationTimeStamp");
 
+                    b.Property<long?>("CreatorId");
+
                     b.Property<string>("Description");
 
                     b.Property<string>("Title");
@@ -114,23 +128,22 @@ namespace TavernApi.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("CreatorId");
+
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("TavernApi.Models.ProjectRole", b =>
+            modelBuilder.Entity("TavernApi.Models.ProjectFunction", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<long>("ProjectId");
 
-                    b.Property<string>("Name");
+                    b.Property<long>("FunctionId");
 
-                    b.Property<long?>("ProjectId");
+                    b.HasKey("ProjectId", "FunctionId");
 
-                    b.HasKey("Id");
+                    b.HasIndex("FunctionId");
 
-                    b.HasIndex("ProjectId");
-
-                    b.ToTable("ProjectRoles");
+                    b.ToTable("ProjectFunctions");
                 });
 
             modelBuilder.Entity("TavernApi.Models.CommentNode", b =>
@@ -164,13 +177,23 @@ namespace TavernApi.Migrations
                     b.HasOne("TavernApi.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId");
+
+                    b.HasOne("TavernApi.Models.Identity.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId");
                 });
 
-            modelBuilder.Entity("TavernApi.Models.ProjectRole", b =>
+            modelBuilder.Entity("TavernApi.Models.ProjectFunction", b =>
                 {
-                    b.HasOne("TavernApi.Models.Project")
-                        .WithMany("Roles")
-                        .HasForeignKey("ProjectId");
+                    b.HasOne("TavernApi.Models.Function", "Function")
+                        .WithMany("Projects")
+                        .HasForeignKey("FunctionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TavernApi.Models.Project", "Project")
+                        .WithMany("Functions")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

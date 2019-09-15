@@ -21,6 +21,33 @@ namespace TavernApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Content = table.Column<string>(nullable: true),
+                    ProjectId = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Functions",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Functions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
@@ -49,6 +76,30 @@ namespace TavernApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CommentNodes",
+                columns: table => new
+                {
+                    ParentId = table.Column<long>(nullable: false),
+                    ChildId = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CommentNodes", x => new { x.ParentId, x.ChildId });
+                    table.ForeignKey(
+                        name: "FK_CommentNodes_Comments_ChildId",
+                        column: x => x.ChildId,
+                        principalTable: "Comments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CommentNodes_Comments_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Comments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Projects",
                 columns: table => new
                 {
@@ -57,7 +108,8 @@ namespace TavernApi.Migrations
                     Title = table.Column<string>(nullable: true),
                     CategoryId = table.Column<long>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    CreationTimeStamp = table.Column<DateTime>(nullable: false)
+                    CreationTimeStamp = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -68,10 +120,16 @@ namespace TavernApi.Migrations
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Projects_Users_CreatorId",
+                        column: x => x.CreatorId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserRole",
+                name: "UserRoles",
                 columns: table => new
                 {
                     UserId = table.Column<long>(nullable: false),
@@ -79,15 +137,15 @@ namespace TavernApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRole", x => new { x.UserId, x.RoleId });
+                    table.PrimaryKey("PK_UserRoles", x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
-                        name: "FK_UserRole_Roles_RoleId",
+                        name: "FK_UserRoles_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserRole_Users_UserId",
+                        name: "FK_UserRoles_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -95,29 +153,39 @@ namespace TavernApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProjectRoles",
+                name: "ProjectFunctions",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true),
-                    ProjectId = table.Column<long>(nullable: true)
+                    ProjectId = table.Column<long>(nullable: false),
+                    FunctionId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectRoles", x => x.Id);
+                    table.PrimaryKey("PK_ProjectFunctions", x => new { x.ProjectId, x.FunctionId });
                     table.ForeignKey(
-                        name: "FK_ProjectRoles_Projects_ProjectId",
+                        name: "FK_ProjectFunctions_Functions_FunctionId",
+                        column: x => x.FunctionId,
+                        principalTable: "Functions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProjectFunctions_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectRoles_ProjectId",
-                table: "ProjectRoles",
-                column: "ProjectId");
+                name: "IX_CommentNodes_ChildId",
+                table: "CommentNodes",
+                column: "ChildId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProjectFunctions_FunctionId",
+                table: "ProjectFunctions",
+                column: "FunctionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Projects_CategoryId",
@@ -125,18 +193,32 @@ namespace TavernApi.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRole_RoleId",
-                table: "UserRole",
+                name: "IX_Projects_CreatorId",
+                table: "Projects",
+                column: "CreatorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRoles_RoleId",
+                table: "UserRoles",
                 column: "RoleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ProjectRoles");
+                name: "CommentNodes");
 
             migrationBuilder.DropTable(
-                name: "UserRole");
+                name: "ProjectFunctions");
+
+            migrationBuilder.DropTable(
+                name: "UserRoles");
+
+            migrationBuilder.DropTable(
+                name: "Comments");
+
+            migrationBuilder.DropTable(
+                name: "Functions");
 
             migrationBuilder.DropTable(
                 name: "Projects");
@@ -145,10 +227,10 @@ namespace TavernApi.Migrations
                 name: "Roles");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Users");
         }
     }
 }

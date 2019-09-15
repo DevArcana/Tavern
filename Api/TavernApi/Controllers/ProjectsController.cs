@@ -18,6 +18,18 @@ namespace TavernApi.Controllers
     {}
 
     [HttpGet]
+    [Route("{id}")]
+    public async Task<ActionResult<ProjectDTO>> GetProject(long id)
+    {
+      var project = await _context.Projects.FindAsync(id);
+
+      if (project == null)
+        return await Task.FromResult(new BadRequestResult());
+
+      return await Task.FromResult(new OkObjectResult(new ProjectDTO(project)));
+    }
+
+    [HttpGet]
     public async Task<ActionResult<IEnumerable<Project>>> GetProjects(int pageSize, int page = 1)
     {
       var projects = _context.Projects.GetPaged(page, pageSize);
@@ -37,14 +49,20 @@ namespace TavernApi.Controllers
       if(creator == null)
         return await Task.FromResult(new BadRequestResult());
 
-      var roles = new List<ProjectRole>();
-      foreach(var roleId in model.RolesId)
+      var functions = new List<ProjectFunction>();
+      foreach(var funId in model.FunctionIds)
       {
-        var role = await _context.ProjectRoles.FindAsync(roleId);
-        if (role == null)
+        var fun = await _context.Functions.FindAsync(funId);
+        if (fun == null)
           return await Task.FromResult(new BadRequestResult());
 
-        roles.Add(role);
+        var cross = new ProjectFunction
+        {
+          Function = fun,
+          FunctionId = funId
+        };
+
+        functions.Add(cross);
       }
 
       var project = new Project
@@ -54,7 +72,7 @@ namespace TavernApi.Controllers
         Creator = creator,
         CreationTimeStamp = DateTime.Now,
         Description = model.Description,
-        Roles = roles
+        Functions = functions
       };
 
       await _context.Projects.AddAsync(project);
