@@ -106,6 +106,8 @@ namespace TavernApi.Migrations
 
                     b.Property<DateTime>("CreationTimeStamp");
 
+                    b.Property<long?>("CreatorId");
+
                     b.Property<string>("Description");
 
                     b.Property<string>("Title");
@@ -113,6 +115,8 @@ namespace TavernApi.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("CreatorId");
 
                     b.ToTable("Projects");
                 });
@@ -124,11 +128,7 @@ namespace TavernApi.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<long?>("ProjectId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
 
                     b.ToTable("ProjectRoles");
                 });
@@ -164,13 +164,10 @@ namespace TavernApi.Migrations
                     b.HasOne("TavernApi.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId");
-                });
 
-            modelBuilder.Entity("TavernApi.Models.ProjectRole", b =>
-                {
-                    b.HasOne("TavernApi.Models.Project")
-                        .WithMany("Roles")
-                        .HasForeignKey("ProjectId");
+                    b.HasOne("TavernApi.Models.Identity.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId");
                 });
 #pragma warning restore 612, 618
         }

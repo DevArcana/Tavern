@@ -1,18 +1,18 @@
 ﻿namespace TavernApi.Models
 {
-  public class ProjectRole
+  public class Function
   {
     public long Id { get; set; }
     public string Name { get; set; }
   }
 
-  public class ProjectRoleDTO
+  public class FunctionDTO
   {
     public long Id { get; set; }
     public string Name { get; set; }
 
-    public ProjectRoleDTO() { }
-    public ProjectRoleDTO(ProjectRole project)
+    public FunctionDTO() { }
+    public FunctionDTO(Function project)
     {
       Id = project.Id;
       Name = project.Name;

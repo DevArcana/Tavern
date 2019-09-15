@@ -18,7 +18,7 @@ namespace TavernApi.Databases
     public DbSet<Category> Categories { get; set; }
     public DbSet<Comment> Comments { get; set; }
     public DbSet<Project> Projects { get; set; }
-    public DbSet<ProjectRole> ProjectRoles { get; set; }
+    public DbSet<Function> Functions { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
     {
       builder.UseSqlite("Data Source=tavern.db");
