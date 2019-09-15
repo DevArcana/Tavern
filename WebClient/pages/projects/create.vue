@@ -87,8 +87,19 @@ export default Vue.extend({
   },
   methods: {
     async submit() {
-      console.log(this)
-      this.error = "Hello";
+      try {
+        const response = await this.$axios.post("projects", {
+          title: this.title,
+          categoryId: this.selectedCategory ? this.selectedCategory.id : -1,
+          functionIds: this.selectedFunctions.map(f => f.id),
+          description: this.description
+        });
+
+        this.$router.push("/projects/" + response.data);
+      } catch (e) {
+        console.log(e);
+        this.error = "Something went wrong.";
+      }
     },
 
     getFilteredFunctions(text: string) {

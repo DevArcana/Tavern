@@ -77,7 +77,7 @@ namespace TavernApi.Controllers
 
       await _context.Projects.AddAsync(project);
       await _context.SaveChangesAsync();
-      return await Task.FromResult(new OkResult());
+      return await Task.FromResult(new OkObjectResult(project.Id));
     }
 
   }
