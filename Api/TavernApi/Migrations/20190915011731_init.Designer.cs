@@ -9,7 +9,7 @@ using TavernApi.Databases;
 namespace TavernApi.Migrations
 {
     [DbContext(typeof(TavernContext))]
-    [Migration("20190915004653_init")]
+    [Migration("20190915011731_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,9 +37,15 @@ namespace TavernApi.Migrations
 
                     b.Property<string>("Content");
 
+                    b.Property<DateTime>("CreationTimeStamp");
+
+                    b.Property<long?>("CreatorId");
+
                     b.Property<long>("ProjectId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
 
                     b.ToTable("Comments");
                 });
@@ -146,6 +152,13 @@ namespace TavernApi.Migrations
                     b.HasIndex("FunctionId");
 
                     b.ToTable("ProjectFunctions");
+                });
+
+            modelBuilder.Entity("TavernApi.Models.Comment", b =>
+                {
+                    b.HasOne("TavernApi.Models.Identity.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId");
                 });
 
             modelBuilder.Entity("TavernApi.Models.CommentNode", b =>

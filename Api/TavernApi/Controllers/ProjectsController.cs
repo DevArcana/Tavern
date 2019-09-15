@@ -39,7 +39,7 @@ namespace TavernApi.Controllers
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<Project>> CreateProject([FromBody]ProjectDCO model)
+    public async Task<ActionResult<ProjectDTO>> CreateProject([FromBody]ProjectDCO model)
     {
       var category = await _context.Categories.FindAsync(model.CategoryId);
       if (category == null)
@@ -77,7 +77,7 @@ namespace TavernApi.Controllers
 
       await _context.Projects.AddAsync(project);
       await _context.SaveChangesAsync();
-      return await Task.FromResult(new OkObjectResult(project.Id));
+      return await Task.FromResult(new OkObjectResult(new ProjectDTO(project)));
     }
 
   }
