@@ -27,7 +27,7 @@ $colors: (
 
 html, body {
   background-color: $bg;
-  height: 100%;
+  min-height: 100vh;
 }
 
 // Import Bulma and Buefy styles

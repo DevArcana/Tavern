@@ -24,6 +24,9 @@ export default Vue.extend({
   async asyncData ({ params }) {
     const project = await axios.get(`http://localhost:5000/api/projects/${params.id}`)
     const comments = await axios.get(`http://localhost:5000/api/comments/${params.id}`)
+    
+    console.log(comments)
+
     return { project: project.data as Project, comments: comments.data }
   },
   components: {
