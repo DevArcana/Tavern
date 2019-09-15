@@ -99,12 +99,12 @@ $breakpoint: 1215px;
 .logo {
   @media screen and (max-width: $breakpoint) {
     height: auto;
-    width: 150px;
+    width: auto;
   }
 
   @media screen and (min-width: $breakpoint) {
     height: auto;
-    width: 240px;
+    width: auto;
   }
 }
 </style>

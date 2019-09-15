@@ -1,8 +1,8 @@
 <template>
   <div class="card">
     <div class="card-content">{{comment.content}}</div>
-    <b-collapse class="card-content" :open="false" aria-id="contentIdForA11y1">
-      <button class="button is-primary" slot="trigger" aria-controls="contentIdForA11y1">Reply</button>
+    <b-collapse class="card-content" :open="false" aria-id="contentIdForA11y1" v-if="isAuthenticated">
+      <button class="button is-primary" slot="trigger" aria-controls="contentIdForA11y1" >Reply</button>
       <b-field>
         <form action method="post" @submit.prevent="reply">
           <b-input
@@ -27,6 +27,7 @@
 import Vue, { PropOptions } from "vue";
 import Project from "~/models/Project";
 import Comment from "~/models/Comment";
+import { mapGetters } from 'vuex'
 
 export default Vue.extend({
   name: "Comment",
@@ -57,6 +58,9 @@ export default Vue.extend({
       type: Object,
       required: true
     } as PropOptions<Comment>
+  },
+  computed: {
+    ...mapGetters(['isAuthenticated', 'loggedInUser'])
   }
 });
 </script>
