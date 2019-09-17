@@ -1,4 +1,4 @@
-process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+
 export default {
   mode: 'universal',
   /*
@@ -23,7 +23,7 @@ export default {
   ** Global CSS
   */
   css: [
-    '@/assets/colors.scss'
+    '@/assets/css/main.scss'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -33,7 +33,11 @@ export default {
   /*
   ** Nuxt.js dev-modules
   */
-  buildModules: ['@nuxt/typescript-build'],
+  buildModules: [
+    // Doc: https://github.com/nuxt-community/eslint-module
+    '@nuxtjs/eslint-module',
+    '@nuxt/typescript-build'
+  ],
   /*
   ** Nuxt.js modules
   */
@@ -42,22 +46,15 @@ export default {
     'nuxt-buefy',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/proxy',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
+    'nuxt-validate'
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: 'http://localhost:3000/api',
-    proxyHeaders: false
-  },
-  /*
-  ** Proxy module configuration
-  */
-  proxy: {
-    '/api': 'http://localhost:5000'
+    baseURL: 'https://localhost:5001/api'
   },
   /*
   ** Auth module configuration
@@ -66,8 +63,8 @@ export default {
     strategies: {
       local: {
         endpoints: {
-          login: { url: 'user/login', method: 'post', propertyName: false },
-          user: { url: 'user', method: 'get', propertyName: false },
+          login: { url: 'login', method: 'post', propertyName: false },
+          user: { url: 'me', method: 'get', propertyName: false },
           logout: false
         }
       }
@@ -80,7 +77,9 @@ export default {
     /*
     ** You can extend webpack config here
     */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     extend (config, ctx) {
+
     }
   }
 }

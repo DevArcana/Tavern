@@ -1,4 +1,3 @@
-// tsconfig.json
 {
   "compilerOptions": {
     "target": "esnext",
@@ -25,9 +24,7 @@
     },
     "types": [
       "@types/node",
-      "@nuxt/types",
-      "@nuxtjs/axios",
-      "@nuxtjs/auth"
+      "@nuxt/types"
     ]
   },
   "exclude": [

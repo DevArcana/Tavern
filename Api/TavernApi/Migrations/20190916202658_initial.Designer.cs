@@ -9,8 +9,8 @@ using TavernApi.Databases;
 namespace TavernApi.Migrations
 {
     [DbContext(typeof(TavernContext))]
-    [Migration("20190915011731_init")]
-    partial class init
+    [Migration("20190916202658_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

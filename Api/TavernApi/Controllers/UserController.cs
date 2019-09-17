@@ -18,7 +18,7 @@ using TavernApi.Models.Identity;
 namespace TavernApi.Controllers
 {
   [ApiController]
-  [Route("api/user")]
+  [Route("api")]
   public class AccountController : TavernController
   {
     private readonly SignInManager<User> _signInManager;
@@ -68,6 +68,7 @@ namespace TavernApi.Controllers
     }
 
     [HttpGet]
+    [Route("me")]
     [Authorize]
     public async Task<ActionResult<UserDTO>> GetUserInfo()
     {

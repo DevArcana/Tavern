@@ -3,26 +3,25 @@
     <Navbar />
     <div class="columns">
       <div class="column is-8 is-offset-2">
-        <div class="content-container">
-          <nuxt />
-        </div>
+        <nuxt class="content" />
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import Navbar from "~/components/Navbar";
+<script lang="ts">
+import Vue from 'vue'
+import Navbar from '~/components/Navbar.vue'
 
-export default {
+export default Vue.extend({
   components: {
     Navbar
   }
-};
+})
 </script>
 
-<style>
-.content-container {
-  margin-top: 1rem;
+<style scoped>
+.content {
+  overflow: auto;
 }
 </style>

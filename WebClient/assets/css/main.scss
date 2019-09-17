@@ -1,35 +1,37 @@
-// Import Bulma's core
 @import "~bulma/sass/utilities/_all";
 
-// Set your colors
-$primary: #976d3c;
+$primary: #545b69;
 $primary-invert: findColorInvert($primary);
 
-$bg: #443625;
-$bg-invert: findColorInvert($bg);
-
-$dark: rgb(49, 45, 38);
+$dark: #2d2d2d;
 $dark-invert: findColorInvert($dark);
 
-// Setup $colors to use as bulma classes (e.g. 'is-twitter')
+$darker: #202020;
+$darker-invert: findColorInvert($darker);
+
+$darkest: #1d1d1d;
+$darkest-invert: findColorInvert($darkest);
+
 $colors: (
     "white": ($white, $black),
     "black": ($black, $white),
     "light": ($light, $light-invert),
     "dark": ($dark, $dark-invert),
+    "darker": ($darker, $darker-invert),
+    "darkest": ($darkest, $darkest-invert),
     "primary": ($primary, $primary-invert),
     "info": ($info, $info-invert),
     "success": ($success, $success-invert),
     "warning": ($warning, $warning-invert),
-    "danger": ($danger, $danger-invert),
-    "bg": ($bg, $bg-invert),
+    "danger": ($danger, $danger-invert)
 );
 
-html, body {
-  background-color: $bg;
-  min-height: 100vh;
-}
+$link: $primary;
+$link-invert: $primary-invert;
+$link-focus-border: $primary;
 
-// Import Bulma and Buefy styles
+$body-background-color: $darker;
+
 @import "~bulma";
+@import "@/assets/css/navbar";
 @import "~buefy/src/scss/buefy";

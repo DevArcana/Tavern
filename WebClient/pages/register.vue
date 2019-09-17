@@ -1,89 +1,103 @@
 <template>
   <div class="box">
-    <h2 class="title has-text-centered">Register!</h2>
+    <form action="" method="post" @submit.prevent="validate">
+      <b-field
+        label="Username"
+        :type="{'is-danger': errors.has('username')}"
+        :message="errors.first('username')"
+      >
+        <b-input v-model="username" v-validate="'required|alpha'" type="text" name="username" />
+      </b-field>
 
-    <Notification :message="error" v-if="error" />
+      <b-field
+        label="Email"
+        :type="{'is-danger': errors.has('email')}"
+        :message="errors.first('email')"
+      >
+        <b-input v-model="email" v-validate="'required|email'" type="email" name="email" />
+      </b-field>
 
-    <form method="post" @submit.prevent="register">
-      <div class="field">
-        <label class="label">Username</label>
-        <div class="control">
-          <input type="text" class="input" name="username" v-model="username" required />
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Email</label>
-        <div class="control">
-          <input type="email" class="input" name="email" v-model="email" required />
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Password</label>
-        <div class="control">
-          <input type="password" class="input" name="password" v-model="password" required />
-        </div>
-      </div>
-      <div class="control">
-        <button type="submit" class="button is-dark is-fullwidth">Register</button>
-      </div>
+      <b-field
+        label="Password"
+        :type="{'is-danger': errors.has('password')}"
+        :message="errors.first('password')"
+      >
+        <b-input v-model="password" v-validate="'required|min:8'" type="password" name="password" />
+      </b-field>
+
+      <b-field
+        label="Confirm password"
+        :type="{'is-danger': errors.has('confirm-password')}"
+        :message="[{
+          'The confirm password field is required' : errors.firstByRule('confirm-password', 'required'),
+          'The confirm password is not valid' : errors.firstByRule('confirm-password', 'is')
+        }]"
+      >
+        <b-input
+          v-model="confirmPassword"
+          v-validate="{ required: true, is: password }"
+          type="password"
+          name="confirm-password"
+        />
+      </b-field>
+
+      <b-field
+        label=""
+        :type="{'is-danger': errors.has('flag-terms')}"
+        :message="{'Please check this box to proceed' : errors.firstByRule('flag-terms', 'required')}"
+      >
+        <b-checkbox v-model="agreedToTerms" v-validate="'required:false'" name="flag-terms">
+          I agree to the terms and conditions
+        </b-checkbox>
+      </b-field>
+
+      <button type="submit" class="button is-primary">
+        Submit
+      </button>
     </form>
-
-    <div class="has-text-centered" style="margin-top: 20px">
-      Already got an account?
-      <nuxt-link to="/login">Login</nuxt-link>
-    </div>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from "vue"
-import Notification from "~/components/Notification.vue";
+import Vue from 'vue'
+import VeeValidate from 'vee-validate'
+
+class Data {
+  username: string = '';
+  email: string = '';
+  password: string = '';
+  confirmPassword: string = '';
+  agreedToTerms: boolean = false;
+}
+
+Vue.use(VeeValidate, {
+  events: ''
+})
 
 export default Vue.extend({
-  components: {
-    Notification
+  data () {
+    return new Data()
   },
-
-  data() {
-    return {
-      username: "",
-      email: "",
-      password: "",
-      error: null
-    } as {
-      username: string;
-      email: string;
-      password: string;
-      error: string | null;
-    };
-  },
-
   methods: {
-    async register() {
+    async validate () {
+      const result = await this.$validator.validateAll()
+
+      if (result) {
+        await this.register()
+      }
+    },
+
+    register () {
       try {
-        await this.$axios.post("user/register", {
-          username: this.username,
-          email: this.email,
-          password: this.password
-        });
-
-        //@ts-ignore
-        await this.$auth.loginWith("local", {
-          data: {
-            username: this.username,
-            password: this.password
-          }
-        });
-
-        this.$router.push("/");
+        // TODO: Implement store action
       } catch (e) {
-        if (e.response) {
-          this.error = e.response.data.message;
-        } else {
-          this.error = "Failed to get a response.";
-        }
+        // Handle errors somehow
       }
     }
   }
-});
+})
 </script>
+
+<style>
+
+</style>
