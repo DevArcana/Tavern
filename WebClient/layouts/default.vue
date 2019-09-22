@@ -2,7 +2,7 @@
   <div>
     <Navbar />
     <div class="columns">
-      <div class="column is-8 is-offset-2">
+      <div class="column is-paddingless is-8 is-offset-2">
         <nuxt class="content" />
       </div>
     </div>
