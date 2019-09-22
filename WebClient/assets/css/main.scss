@@ -35,3 +35,7 @@ $body-background-color: $darker;
 @import "~bulma";
 @import "@/assets/css/navbar";
 @import "~buefy/src/scss/buefy";
+
+.box {
+    border-radius: 4px;
+}

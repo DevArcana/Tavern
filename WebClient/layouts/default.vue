@@ -21,7 +21,7 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.content {
-  overflow: auto;
+.columns {
+  margin-top: 1rem;
 }
 </style>

@@ -1,0 +1,14 @@
+C:\Users\nefer\projects\Tavern\Api\TavernApi\bin\Debug\netcoreapp2.2\TavernApi.deps.json
+C:\Users\nefer\projects\Tavern\Api\TavernApi\bin\Debug\netcoreapp2.2\TavernApi.runtimeconfig.json
+C:\Users\nefer\projects\Tavern\Api\TavernApi\bin\Debug\netcoreapp2.2\TavernApi.runtimeconfig.dev.json
+C:\Users\nefer\projects\Tavern\Api\TavernApi\bin\Debug\netcoreapp2.2\TavernApi.dll
+C:\Users\nefer\projects\Tavern\Api\TavernApi\bin\Debug\netcoreapp2.2\TavernApi.pdb
+C:\Users\nefer\projects\Tavern\Api\TavernApi\obj\Debug\netcoreapp2.2\TavernApi.csprojAssemblyReference.cache
+C:\Users\nefer\projects\Tavern\Api\TavernApi\obj\Debug\netcoreapp2.2\TavernApi.csproj.CoreCompileInputs.cache
+C:\Users\nefer\projects\Tavern\Api\TavernApi\obj\Debug\netcoreapp2.2\TavernApi.RazorAssemblyInfo.cache
+C:\Users\nefer\projects\Tavern\Api\TavernApi\obj\Debug\netcoreapp2.2\TavernApi.RazorAssemblyInfo.cs
+C:\Users\nefer\projects\Tavern\Api\TavernApi\obj\Debug\netcoreapp2.2\TavernApi.AssemblyInfoInputs.cache
+C:\Users\nefer\projects\Tavern\Api\TavernApi\obj\Debug\netcoreapp2.2\TavernApi.AssemblyInfo.cs
+C:\Users\nefer\projects\Tavern\Api\TavernApi\obj\Debug\netcoreapp2.2\TavernApi.RazorTargetAssemblyInfo.cache
+C:\Users\nefer\projects\Tavern\Api\TavernApi\obj\Debug\netcoreapp2.2\TavernApi.dll
+C:\Users\nefer\projects\Tavern\Api\TavernApi\obj\Debug\netcoreapp2.2\TavernApi.pdb

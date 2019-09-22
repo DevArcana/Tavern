@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Repos\\Tavern\\Api\\TavernApi\\TavernApi.csproj": {}
+    "C:\\Users\\nefer\\projects\\Tavern\\Api\\TavernApi\\TavernApi.csproj": {}
   },
   "projects": {
-    "F:\\Repos\\Tavern\\Api\\TavernApi\\TavernApi.csproj": {
+    "C:\\Users\\nefer\\projects\\Tavern\\Api\\TavernApi\\TavernApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Repos\\Tavern\\Api\\TavernApi\\TavernApi.csproj",
+        "projectUniqueName": "C:\\Users\\nefer\\projects\\Tavern\\Api\\TavernApi\\TavernApi.csproj",
         "projectName": "TavernApi",
-        "projectPath": "F:\\Repos\\Tavern\\Api\\TavernApi\\TavernApi.csproj",
-        "packagesPath": "C:\\Users\\Jadw1\\.nuget\\packages\\",
-        "outputPath": "F:\\Repos\\Tavern\\Api\\TavernApi\\obj\\",
+        "projectPath": "C:\\Users\\nefer\\projects\\Tavern\\Api\\TavernApi\\TavernApi.csproj",
+        "packagesPath": "C:\\Users\\nefer\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nefer\\projects\\Tavern\\Api\\TavernApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Jadw1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nefer\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

@@ -42,7 +42,7 @@ namespace TavernApi.Controllers
       if (result.Succeeded)
       {
         var appUser = _userManager.Users.SingleOrDefault(u => u.Username == login.Username);
-        return GenerateJwtToken(appUser.Email, appUser);
+        return GenerateJwtToken(appUser?.Email, appUser);
       }
 
       return new BadRequestResult();

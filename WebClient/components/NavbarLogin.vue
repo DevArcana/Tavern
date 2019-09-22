@@ -1,6 +1,10 @@
 <template>
   <b-dropdown position="is-bottom-left" aria-role="menu">
-    <a slot="trigger" class="navbar-item" role="button">
+    <a
+      slot="trigger"
+      class="navbar-item"
+      role="button"
+    >
       <span>Login</span>
       <b-icon icon="menu-down" />
     </a>
@@ -9,39 +13,35 @@
       aria-role="menu-item"
       :focusable="false"
       custom
-      paddingless
     >
-      <form action="">
-        <div class="modal-card" style="width:300px;">
-          <section class="modal-card-body">
-            <b-field label="Email">
-              <b-input
-                type="email"
-                placeholder="Your email"
-                required
-              />
-            </b-field>
+      <form action="" method="post" @submit.prevent="validate">
+        <b-field
+          label="Username"
+          :type="{'is-danger': errors.has('username')}"
+          :message="errors.first('username')"
+        >
+          <b-input v-model="username" v-validate="'required|alpha'" type="text" name="username" />
+        </b-field>
 
-            <b-field label="Password">
-              <b-input
-                type="password"
-                password-reveal
-                placeholder="Your password"
-                required
-              />
-            </b-field>
+        <b-field
+          label="Email"
+          :type="{'is-danger': errors.has('email')}"
+          :message="errors.first('email')"
+        >
+          <b-input v-model="email" v-validate="'required|email'" type="email" name="email" />
+        </b-field>
 
-            <b-checkbox>Remember me</b-checkbox>
-          </section>
-          <footer class="modal-card-foot">
-            <button class="button is-dark">
-              Login
-            </button>
-            <nuxt-link class="button is-dark is-outlined" to="/register">
-              Sign up
-            </nuxt-link>
-          </footer>
-        </div>
+        <b-field
+          label="Password"
+          :type="{'is-danger': errors.has('password')}"
+          :message="errors.first('password')"
+        >
+          <b-input v-model="password" v-validate="'required|min:8'" type="password" name="password" />
+        </b-field>
+
+        <button type="submit" class="button is-primary">
+          Login
+        </button>
       </form>
     </b-dropdown-item>
   </b-dropdown>
@@ -50,8 +50,32 @@
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend({
+class Data {
+  username: string = ''
+  email: string = ''
+  password: string = ''
+}
 
+export default Vue.extend({
+  data () {
+    return new Data()
+  },
+  methods: {
+    async validate () {
+      // @ts-ignore
+      const result = await this.$validator.validateAll()
+
+      if (result) {
+        // @ts-ignore
+        await this.$auth.loginWith('local', {
+          data: {
+            username: this.username,
+            password: this.password
+          }
+        })
+      }
+    }
+  }
 })
 </script>
 

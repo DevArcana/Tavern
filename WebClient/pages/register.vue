@@ -60,7 +60,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import VeeValidate from 'vee-validate'
 
 class Data {
   username: string = '';
@@ -70,16 +69,13 @@ class Data {
   agreedToTerms: boolean = false;
 }
 
-Vue.use(VeeValidate, {
-  events: ''
-})
-
 export default Vue.extend({
   data () {
     return new Data()
   },
   methods: {
     async validate () {
+      // @ts-ignore
       const result = await this.$validator.validateAll()
 
       if (result) {
@@ -87,9 +83,23 @@ export default Vue.extend({
       }
     },
 
-    register () {
+    async register () {
       try {
-        // TODO: Implement store action
+        await this.$axios.post('register', {
+          username: this.username,
+          email: this.email,
+          password: this.password
+        })
+
+        // @ts-ignore
+        await this.$auth.loginWith('local', {
+          data: {
+            username: this.username,
+            password: this.password
+          }
+        })
+
+        this.$router.push('/')
       } catch (e) {
         // Handle errors somehow
       }
